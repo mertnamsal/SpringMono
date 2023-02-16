@@ -58,4 +58,7 @@ public class UserService extends ServiceManager<User,Long> {
 
         return result;
     }
+    public Boolean existsUserByUsername(String username){
+        return repository.existsUserByUsername(username);
+    }
 }
