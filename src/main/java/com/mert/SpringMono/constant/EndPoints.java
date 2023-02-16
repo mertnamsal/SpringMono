@@ -19,6 +19,7 @@ public class EndPoints {
     public static final String FINDBYID = "/findbyid";
     public static final String SAVEALL = "/saveall";
     public static final String REGISTER = "/register";
+    public static final String LOGIN = "/login";
     public static final String MVCUSER = MVC+"/user";
 
 }
