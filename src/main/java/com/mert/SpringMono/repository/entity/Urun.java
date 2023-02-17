@@ -20,4 +20,6 @@ public class Urun extends BaseEntity {
     String ad;
     Double fiyat;
     String barkod;
+    Integer kdv;
+    String resim;
 }

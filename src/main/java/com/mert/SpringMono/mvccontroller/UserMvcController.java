@@ -1,6 +1,8 @@
 package com.mert.SpringMono.mvccontroller;
 
+import com.mert.SpringMono.dto.request.LoginRequestDto;
 import com.mert.SpringMono.dto.request.RegisterRequestDto;
+import com.mert.SpringMono.repository.entity.User;
 import com.mert.SpringMono.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 import static com.mert.SpringMono.constant.EndPoints.*;
 @Controller
@@ -33,8 +37,26 @@ public class UserMvcController {
          */
         model.setViewName("login");
         model.addObject("title","Giriş Sayfası");
+        model.addObject("error","");
         return model;
     }
+    @PostMapping(LOGIN)
+    public ModelAndView login(LoginRequestDto dto){
+        ModelAndView model = new ModelAndView();
+        Optional<User> user = userService.findOptionalByUsernameAndPassword(dto);
+        /**
+         * Kullanıcı adı yada şifre hatalı ise
+         */
+        if(user.isEmpty()){
+            model.setViewName("login");
+            model.addObject("error","Kullanıcı adı yada şifre hatalıdır.");
+            return model;
+        }else{
+             return new ModelAndView("index");
+        }
+
+    }
+
     @GetMapping(REGISTER)
     public ModelAndView register(){
         ModelAndView model = new ModelAndView();
@@ -58,4 +80,10 @@ public class UserMvcController {
         return model;
     }
 
+    @GetMapping(INDEX)
+    public ModelAndView index(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("index");
+        return model;
+    }
 }

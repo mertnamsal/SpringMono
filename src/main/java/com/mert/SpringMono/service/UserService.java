@@ -1,5 +1,6 @@
 package com.mert.SpringMono.service;
 
+import com.mert.SpringMono.dto.request.LoginRequestDto;
 import com.mert.SpringMono.dto.request.RegisterRequestDto;
 import com.mert.SpringMono.dto.response.UserControllerFindAllResponseDto;
 import com.mert.SpringMono.mapper.IUserMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -60,5 +62,8 @@ public class UserService extends ServiceManager<User,Long> {
     }
     public Boolean existsUserByUsername(String username){
         return repository.existsUserByUsername(username);
+    }
+    public Optional<User> findOptionalByUsernameAndPassword(LoginRequestDto dto){
+        return repository.findOptionalByUsernameAndPassword(dto.getUsername(), dto.getPassword());
     }
 }
